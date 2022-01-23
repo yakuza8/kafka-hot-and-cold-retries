@@ -24,11 +24,11 @@ $ gradle bootRun # To make the application up and running
 ````
 
 ## Flow
-![Flow chart for hot and cold retry execution](diagrams/flow_of_hot_and_cold_retries.jpg?raw=true)
-
 As depicted in the below figure, our journey starts with our producer. It publishes the message on the target topic, and
 the consumer starts processing. There will not be any problem while consuming in the happy path, and the consumer will 
 be able to process the message.
+
+![Flow chart for hot and cold retry execution](diagrams/flow_of_hot_and_cold_retries.jpg?raw=true)
 
 But, if the consumer encounters an exception, it will first check whether any hot retry is defined or not. If so, we 
 will try the message consumption up until maximum hot retry attempt or it succeeds in consuming the message. If it fails
