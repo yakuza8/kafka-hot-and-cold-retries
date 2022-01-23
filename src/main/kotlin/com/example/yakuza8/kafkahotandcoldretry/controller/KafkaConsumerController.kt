@@ -6,6 +6,7 @@ import com.example.yakuza8.kafkahotandcoldretry.common.Constants.Companion.NEXT_
 import com.example.yakuza8.kafkahotandcoldretry.common.Utilities.Companion.readValueFromHeader
 import com.example.yakuza8.kafkahotandcoldretry.service.KafkaConsumerService
 import net.logstash.logback.argument.StructuredArguments
+import net.logstash.logback.argument.StructuredArguments.kv
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -96,13 +97,13 @@ class KafkaConsumerController(
         consumerName: String,
         kafkaHeaders: Map<String, ByteArray>? = null,
     ) {
-        if (kafkaHeaders != null)
-            logger.info(
-                "Read a topic from $consumerName queue",
-                StructuredArguments.kv("headers", getCustomHeadersFromTopic(kafkaHeaders = kafkaHeaders))
+        logger.info(
+            "Read a topic from $consumerName queue",
+            kv(
+                "headers",
+                if (kafkaHeaders == null) emptyMap() else getCustomHeadersFromTopic(kafkaHeaders = kafkaHeaders)
             )
-        else
-            logger.info("Read a topic from $consumerName queue",)
+        )
     }
 
     companion object {
