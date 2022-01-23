@@ -12,7 +12,7 @@ spring:
           consumer-count: 3
           hot-retry:
             count: 3
-            interval: 1000
+            interval: 1000 # 1-second delay for hot retry
           cold-retry:
             next-topic: retry-1
         retry-1:
@@ -20,14 +20,14 @@ spring:
           is-manually-acknowledged: true
           cold-retry:
             count: 12
-            interval: 300000
+            interval: 300000 # 12 x 5-minutes delay for cold retry
             next-topic: retry-2
         retry-2:
           topic-name: example.event.payment-vendor-notification.retry-2
           is-manually-acknowledged: true
           cold-retry:
             count: 6
-            interval: 3600000
+            interval: 3600000 # 6 x 1-hour delay for cold retry
             next-topic: dead-letter
         dead-letter:
           topic-name: example.event.payment-vendor-notification.dlt
