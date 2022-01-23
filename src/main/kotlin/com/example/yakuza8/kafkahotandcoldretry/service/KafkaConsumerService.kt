@@ -12,7 +12,10 @@ class KafkaConsumerService {
     fun processPaymentVendorNotificationEvent(event: String, acknowledgment: Acknowledgment? = null) {
         try {
             logger.info("Processing event message successfully", kv("payload", event))
-            throw RuntimeException()
+
+            // To produce erroneous cases
+            if (event.startsWith("error"))
+                throw RuntimeException("This error is thrown for demo purposes")
         } catch (exception: Exception) {
             logger.error("An error encountered while processing an event message", kv("payload", event), exception)
             throw exception
