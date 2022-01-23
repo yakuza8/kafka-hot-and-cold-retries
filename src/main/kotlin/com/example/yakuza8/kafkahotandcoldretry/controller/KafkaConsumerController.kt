@@ -96,10 +96,13 @@ class KafkaConsumerController(
         consumerName: String,
         kafkaHeaders: Map<String, ByteArray>? = null,
     ) {
-        logger.info(
-            "Read a topic from $consumerName queue",
-            StructuredArguments.kv("headers", getCustomHeadersFromTopic(kafkaHeaders = kafkaHeaders))
-        )
+        if (kafkaHeaders != null)
+            logger.info(
+                "Read a topic from $consumerName queue",
+                StructuredArguments.kv("headers", getCustomHeadersFromTopic(kafkaHeaders = kafkaHeaders))
+            )
+        else
+            logger.info("Read a topic from $consumerName queue",)
     }
 
     companion object {
