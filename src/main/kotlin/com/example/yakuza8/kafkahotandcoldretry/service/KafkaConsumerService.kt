@@ -9,7 +9,7 @@ import net.logstash.logback.argument.StructuredArguments.kv
 @Service
 class KafkaConsumerService {
 
-    fun processPaymentVendorEvent(event: String, acknowledgment: Acknowledgment? = null) {
+    fun processPaymentVendorNotificationEvent(event: String, acknowledgment: Acknowledgment? = null) {
         try {
             logger.info("Processing event message successfully", kv("payload", event))
         } catch (exception: Exception) {

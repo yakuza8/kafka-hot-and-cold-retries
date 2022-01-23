@@ -26,7 +26,7 @@ class KafkaConsumerController(
     )
     fun consumeFromMainTopic(event: String) {
         logAndTrackMessages(consumerName = "main")
-        kafkaConsumerService.processPaymentVendorEvent(event = event)
+        kafkaConsumerService.processPaymentVendorNotificationEvent(event = event)
     }
 
     @KafkaListener(
@@ -41,7 +41,7 @@ class KafkaConsumerController(
         if (shouldIgnoreEventByNextProcessingTime(kafkaHeaders, acknowledgment))
             return
         logAndTrackMessages(consumerName = "retry-1", kafkaHeaders = kafkaHeaders)
-        kafkaConsumerService.processPaymentVendorEvent(event = event, acknowledgment = acknowledgment)
+        kafkaConsumerService.processPaymentVendorNotificationEvent(event = event, acknowledgment = acknowledgment)
     }
 
     @KafkaListener(
@@ -56,7 +56,7 @@ class KafkaConsumerController(
         if (shouldIgnoreEventByNextProcessingTime(kafkaHeaders, acknowledgment))
             return
         logAndTrackMessages(consumerName = "retry-2", kafkaHeaders = kafkaHeaders)
-        kafkaConsumerService.processPaymentVendorEvent(event = event, acknowledgment = acknowledgment)
+        kafkaConsumerService.processPaymentVendorNotificationEvent(event = event, acknowledgment = acknowledgment)
     }
 
 
