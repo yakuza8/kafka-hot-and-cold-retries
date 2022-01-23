@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: kafka-hot-and-cold-retry
+  kafka:
+    consumer:
+      # TODO Fix bootstrap servers
+      bootstrap-servers: localhost:9092
+      group-id: "sample-kafka-consumer"
+      auto-offset-reset: earliest
+      topics:
+        main:
+          topic-name: example.event.payment-vendor-notification
+          consumer-count: 3
+          hot-retry:
+            count: 3
+            interval: 1000
+          cold-retry:
+            next-topic: retry-1
+        retry-1:
+          topic-name: example.event.payment-vendor-notification.retry-1
+          is-manually-acknowledged: true
+          cold-retry:
+            count: 12
+            interval: 300000
+            next-topic: retry-2
+        retry-2:
+          topic-name: example.event.payment-vendor-notification.retry-2
+          is-manually-acknowledged: true
+          cold-retry:
+            count: 6
+            interval: 3600000
+            next-topic: dead-letter
+        dead-letter:
+          topic-name: example.event.payment-vendor-notification.dlt
