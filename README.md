@@ -2,6 +2,8 @@
 A demo project for elaborating how hot and cold retries can be applied in Apache Kafka®. This repository will be the 
 source and reference codebase of my blog post.
 
+You can reach to the further details from [this link](https://medium.com/udemy-engineering/introducing-hot-and-cold-retries-on-apache-kafka-f2f23595627b)
+
 **It includes:**
 * Application configuration and configuration class to read it
 * Consumer factory to create necessary listener container beans and dead letter queue forwarder
